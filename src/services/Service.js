@@ -1,22 +1,22 @@
-import http from "../http-common";
+import http from '../http-common';
 
 const getAll = () => {
-  return http.get("/customers");
+  return http.get('/customers');
 };
 
-const get = id => {
+const get = (id) => {
   return http.get(`/customers/${id}`);
 };
 
-const create = data => {
-  return http.post("/customers", data);
+const create = (data) => {
+  return http.post('/customers', data);
 };
 
 const update = (id, data) => {
   return http.put(`/customers/${id}`, data);
 };
 
-const remove = id => {
+const remove = (id) => {
   return http.delete(`/customers/${id}`);
 };
 
@@ -24,8 +24,8 @@ const removeAll = () => {
   return http.delete(``);
 };
 
-const findByTitle = title => {
-  return http.get(`/customers?title=${title}`);
+const findByName = (name) => {
+  return http.get(`/customers?name=${name}`);
 };
 
 const DataService = {
@@ -35,7 +35,7 @@ const DataService = {
   update,
   remove,
   removeAll,
-  findByTitle
+  findByName,
 };
 
 export default DataService;

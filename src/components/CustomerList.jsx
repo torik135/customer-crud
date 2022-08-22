@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const TutorialsList = () => {
   const [customers, setCustomers] = useState([]);
-  const [currentTutorial, setCurrentCustomer] = useState(null);
+  const [currentCustomers, setCurrentCustomers] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchName, setSearchName] = useState("");
 
@@ -18,7 +18,7 @@ const TutorialsList = () => {
   };
 
   const retrieveCustomers = () => {
-    TutorialDataService.getAll()
+    DataService.getAll()
       .then(response => {
         setCustomers(response.data);
         console.log(response.data);
@@ -40,7 +40,7 @@ const TutorialsList = () => {
   };
 
   const removeAllCustomers = () => {
-    TutorialDataService.removeAll()
+    DataService.removeAll()
       .then(response => {
         console.log(response.data);
         refreshList();
@@ -51,7 +51,7 @@ const TutorialsList = () => {
   };
 
   const findByTitle = () => {
-    TutorialDataService.findByTitle(searchName)
+    DataService.findByName(searchName)
       .then(response => {
         setCustomers(response.data);
         console.log(response.data);
@@ -84,7 +84,7 @@ const TutorialsList = () => {
         </div>
       </div>
       <div className="col-md-6">
-        <h4>Tutorials List</h4>
+        <h4>Customers List</h4>
 
         <ul className="list-group">
           {customers &&
@@ -109,30 +109,30 @@ const TutorialsList = () => {
         </button>
       </div>
       <div className="col-md-6">
-        {currentTutorial ? (
+        {currentCustomers ? (
           <div>
-            <h4>Tutorial</h4>
+            <h4>Customers</h4>
             <div>
               <label>
-                <strong>Title:</strong>
+                <strong>Name:</strong>
               </label>{" "}
-              {currentTutorial.address}
+              {currentCustomers.name}
             </div>
             <div>
               <label>
-                <strong>Description:</strong>
+                <strong>Address:</strong>
               </label>{" "}
-              {currentTutorial.description}
+              {currentCustomers.address}
             </div>
             <div>
               <label>
                 <strong>Status:</strong>
               </label>{" "}
-              {currentTutorial.published ? "Published" : "Pending"}
+              {currentCustomers.status ? "Aktif" : "Non aktif"}
             </div>
 
             <Link
-              to={"/customers/" + currentTutorial.id}
+              to={"/customers/" + currentCustomers.id}
               className="badge badge-warning"
             >
               Edit
@@ -141,7 +141,7 @@ const TutorialsList = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a Tutorial...</p>
+            <p>Please click on a Customer's name...</p>
           </div>
         )}
       </div>

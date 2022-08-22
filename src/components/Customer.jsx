@@ -50,7 +50,7 @@ const Tutorial = (props) => {
 
     DataService.update(currentCustomer.id, data)
       .then((response) => {
-        setCurrentCustomer({ ...currentCustomer, published: status });
+        setCurrentCustomer({ ...currentCustomer, status: status });
         console.log(response.data);
       })
       .catch((e) => {
@@ -87,7 +87,7 @@ const Tutorial = (props) => {
           <h4>Tutorial</h4>
           <form>
             <div className='form-group'>
-              <label htmlFor='title'>Title</label>
+              <label htmlFor='title'>Name</label>
               <input
                 type='text'
                 className='form-control'
@@ -98,7 +98,7 @@ const Tutorial = (props) => {
               />
             </div>
             <div className='form-group'>
-              <label htmlFor='description'>Description</label>
+              <label htmlFor='description'>Address</label>
               <input
                 type='text'
                 className='form-control'
@@ -113,11 +113,11 @@ const Tutorial = (props) => {
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentCustomer.published ? 'Published' : 'Pending'}
+              {currentCustomer.status ? 'aktif' : 'non aktif'}
             </div>
           </form>
 
-          {currentCustomer.published ? (
+          {currentCustomer.status ? (
             <button
               className='badge badge-primary mr-2'
               onClick={() => updateStatus(false)}
