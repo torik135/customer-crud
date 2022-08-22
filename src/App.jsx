@@ -2,10 +2,7 @@ import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
-import AddCustomer from './components/AddCustomer';
-import Customer from './components/Customer';
-import CustomerList from './components/CustomerList';
+import { AddCustomer, Customer, CustomerList } from './components';
 
 function App() {
   return (

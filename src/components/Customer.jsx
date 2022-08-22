@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import DataService from '../services/Service';
+import useFetch from '../services/useFetch';
 
-const Tutorial = (props) => {
+const Customer = (props) => {
   const { id } = useParams();
   let navigate = useNavigate();
 
-  const initialTutorialState = {
+  const initialCustomerState = {
     id: null,
     name: '',
     address: '',
@@ -15,11 +15,13 @@ const Tutorial = (props) => {
     status: false,
   };
 
-  const [currentCustomer, setCurrentCustomer] = useState(initialTutorialState);
+  const [currentCustomer, setCurrentCustomer] = useState(initialCustomerState);
   const [message, setMessage] = useState('');
 
+  const DATA = useFetch();
+
   const getCustomer = (id) => {
-    DataService.get(id)
+    DATA.get(id)
       .then((response) => {
         setCurrentCustomer(response.data);
         console.log(response.data);
@@ -48,7 +50,7 @@ const Tutorial = (props) => {
       status: currentCustomer.status,
     };
 
-    DataService.update(currentCustomer.id, data)
+    DATA.update(currentCustomer.id, data)
       .then((response) => {
         setCurrentCustomer({ ...currentCustomer, status: status });
         console.log(response.data);
@@ -59,18 +61,18 @@ const Tutorial = (props) => {
   };
 
   const updateCustomer = () => {
-    DataService.update(currentCustomer.id, currentCustomer)
+    DATA.update(currentCustomer.id, currentCustomer)
       .then((response) => {
         console.log(response.data);
-        setMessage('The tutorial was updated successfully!');
+        setMessage('The data was updated successfully!');
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const deleteTutorial = () => {
-    DataService.remove(currentCustomer.id)
+  const deleteCustomer = () => {
+    DATA.remove(currentCustomer.id)
       .then((response) => {
         console.log(response.data);
         navigate('/customers');
@@ -84,7 +86,7 @@ const Tutorial = (props) => {
     <div>
       {currentCustomer ? (
         <div className='edit-form'>
-          <h4>Tutorial</h4>
+          <h4>Customer</h4>
           <form>
             <div className='form-group'>
               <label htmlFor='title'>Name</label>
@@ -133,7 +135,7 @@ const Tutorial = (props) => {
             </button>
           )}
 
-          <button className='badge badge-danger mr-2' onClick={deleteTutorial}>
+          <button className='badge badge-danger mr-2' onClick={deleteCustomer}>
             Delete
           </button>
 
@@ -149,11 +151,11 @@ const Tutorial = (props) => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Tutorial...</p>
+          <p>Please click on a Customer...</p>
         </div>
       )}
     </div>
   );
 };
 
-export default Tutorial;
+export { Customer };

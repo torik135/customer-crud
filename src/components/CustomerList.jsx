@@ -1,31 +1,28 @@
-import React, { useState, useEffect } from "react";
-import DataService from "../services/Service";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import useFetch from '../services/useFetch';
 
-const TutorialsList = () => {
+const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
   const [currentCustomers, setCurrentCustomers] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [searchName, setSearchName] = useState("");
+  const [searchName, setSearchName] = useState('');
 
-  useEffect(() => {
-    retrieveCustomers();
+  const DATA = useFetch();
+
+  useEffect(async () => {
+    await retrieveCustomers();
+    return () => setCustomers([]);
   }, []);
 
-  const onChangeSearchTitle = e => {
+  const onChangeSearchName = (e) => {
     const searchName = e.target.value;
     setSearchName(searchName);
   };
 
-  const retrieveCustomers = () => {
-    DataService.getAll()
-      .then(response => {
-        setCustomers(response.data);
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  const retrieveCustomers = async () => {
+    const data = await DATA.getAll();
+    setCustomers(data.data);
   };
 
   const refreshList = () => {
@@ -40,58 +37,58 @@ const TutorialsList = () => {
   };
 
   const removeAllCustomers = () => {
-    DataService.removeAll()
-      .then(response => {
+    DATA.removeAll()
+      .then((response) => {
         console.log(response.data);
         refreshList();
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
-  const findByTitle = () => {
-    DataService.findByName(searchName)
-      .then(response => {
+  const findByName = () => {
+    DATA.findByName(searchName)
+      .then((response) => {
         setCustomers(response.data);
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
   return (
-    <div className="list row">
-      <div className="col-md-8">
-        <div className="input-group mb-3">
+    <div className='list row'>
+      <div className='col-md-8'>
+        <div className='input-group mb-3'>
           <input
-            type="text"
-            className="form-control"
-            placeholder="Search by title"
+            type='text'
+            className='form-control'
+            placeholder='Search by name'
             value={searchName}
-            onChange={onChangeSearchTitle}
+            onChange={onChangeSearchName}
           />
-          <div className="input-group-append">
+          <div className='input-group-append'>
             <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={findByTitle}
+              className='btn btn-outline-secondary'
+              type='button'
+              onClick={findByName}
             >
               Search
             </button>
           </div>
         </div>
       </div>
-      <div className="col-md-6">
+      <div className='col-md-6'>
         <h4>Customers List</h4>
 
-        <ul className="list-group">
+        <ul className='list-group'>
           {customers &&
             customers.map((customer, index) => (
               <li
                 className={
-                  "list-group-item " + (index === currentIndex ? "active" : "")
+                  'list-group-item ' + (index === currentIndex ? 'active' : '')
                 }
                 onClick={() => setActiveCustomers(customer, index)}
                 key={index}
@@ -102,38 +99,38 @@ const TutorialsList = () => {
         </ul>
 
         <button
-          className="m-3 btn btn-sm btn-danger"
+          className='m-3 btn btn-sm btn-danger'
           onClick={removeAllCustomers}
         >
           Remove All
         </button>
       </div>
-      <div className="col-md-6">
+      <div className='col-md-6'>
         {currentCustomers ? (
           <div>
             <h4>Customers</h4>
             <div>
               <label>
                 <strong>Name:</strong>
-              </label>{" "}
+              </label>{' '}
               {currentCustomers.name}
             </div>
             <div>
               <label>
                 <strong>Address:</strong>
-              </label>{" "}
+              </label>{' '}
               {currentCustomers.address}
             </div>
             <div>
               <label>
                 <strong>Status:</strong>
-              </label>{" "}
-              {currentCustomers.status ? "Aktif" : "Non aktif"}
+              </label>{' '}
+              {currentCustomers.status ? 'Aktif' : 'Non aktif'}
             </div>
 
             <Link
-              to={"/customers/" + currentCustomers.id}
-              className="badge badge-warning"
+              to={'/customers/' + currentCustomers.id}
+              className='badge badge-warning'
             >
               Edit
             </Link>
@@ -149,4 +146,4 @@ const TutorialsList = () => {
   );
 };
 
-export default TutorialsList;
+export { CustomerList };

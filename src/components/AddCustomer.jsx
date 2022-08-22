@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DataService from '../services/Service';
+import useFetch from '../services/useFetch';
 
 const AddCustomer = () => {
   const initialCustomerState = {
@@ -12,6 +12,8 @@ const AddCustomer = () => {
   };
   const [customer, setCustomer] = useState(initialCustomerState);
   const [submitted, setSubmitted] = useState(false);
+
+  const DATA = useFetch();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,13 +29,15 @@ const AddCustomer = () => {
       status: customer.status,
     };
 
-    DataService.create(data)
+    DATA.create(data)
       .then((response) => {
         setCustomer({
           id: response.data.id,
-          title: response.data.title,
-          description: response.data.description,
-          published: response.data.published,
+          name: customer.name,
+          address: customer.name,
+          country: customer.country,
+          phone_number: customer.phone_number,
+          status: customer.status,
         });
         setSubmitted(true);
         console.log(response.data);
@@ -60,28 +64,66 @@ const AddCustomer = () => {
       ) : (
         <div>
           <div className='form-group'>
-            <label htmlFor='title'>Name</label>
+            <label htmlFor='name'>Name</label>
             <input
               type='text'
               className='form-control'
-              id='title'
+              id='name'
               required
               value={customer.name}
               onChange={handleInputChange}
-              name='title'
+              name='name'
             />
           </div>
 
           <div className='form-group'>
-            <label htmlFor='description'>Address</label>
+            <label htmlFor='address'>Address</label>
             <input
               type='text'
               className='form-control'
-              id='description'
+              id='address'
               required
               value={customer.address}
               onChange={handleInputChange}
-              name='description'
+              name='address'
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='country'>Country</label>
+            <input
+              type='text'
+              className='form-control'
+              id='country'
+              required
+              value={customer.country}
+              onChange={handleInputChange}
+              name='country'
+            />
+          </div>
+
+          <div className='form-group'>
+            <label htmlFor='phone_number'>Phone</label>
+            <input
+              type='text'
+              className='form-control'
+              id='phone_number'
+              required
+              value={customer.phone_number}
+              onChange={handleInputChange}
+              name='phone_number'
+            />
+          </div>
+
+          <div className='form-group'>
+            <label htmlFor='status'>Status</label>
+            <input
+              type='text'
+              className='form-control'
+              id='status'
+              required
+              value={customer.status}
+              onChange={handleInputChange}
+              name='status'
             />
           </div>
 
@@ -94,4 +136,4 @@ const AddCustomer = () => {
   );
 };
 
-export default AddCustomer;
+export { AddCustomer };
