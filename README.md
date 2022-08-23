@@ -2,5 +2,7 @@
 
 status: in-progress
 
-get 401 on webapp
-but 200 on postman
+- READ (done)
+- CREATE
+- UPDATE (done)
+- DELETE

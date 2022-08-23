@@ -30,7 +30,7 @@ function useFetch() {
   };
 
   const remove = async (id) => {
-    const resp = await fetch(baseURL + '/' + id, {
+    const resp = await fetch(baseURL, {
       method: 'DELETE',
       headers,
     });
@@ -46,8 +46,8 @@ function useFetch() {
     return await resp.json();
   };
 
-  const update = async (id, data) => {
-    const resp = await fetch(baseURL + '/' + id, {
+  const update = async (data) => {
+    const resp = await fetch(baseURL, {
       method: 'PUT',
       headers,
       body: JSON.stringify(data),

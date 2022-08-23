@@ -150,6 +150,8 @@ const CustomerList = () => {
               <Link
                 // to={'/customers/' + currentCustomers.id}
                 to={'/edit'}
+                state={{ data: currentCustomers }}
+                // to={{pathname: '/edit', state: currentCustomers}}
                 className='btn btn-primary'
               >
                 Edit

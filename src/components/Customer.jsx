@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useFetch from '../services/useFetch';
 
 const Customer = (props) => {
   const { id } = useParams();
   let navigate = useNavigate();
+  let location = useLocation();
+
+  const data = location.state?.data
 
   const initialCustomerState = {
-    id: null,
-    name: '',
-    address: '',
-    country: '',
-    phone_number: '',
+    id: data.id,
+    name: data.name,
+    address: data.address,
+    country: data.country,
+    phone_number: data.phone_number,
+    job_title: data.job_title,
     status: false,
   };
 
@@ -62,10 +66,11 @@ const Customer = (props) => {
   };
 
   const updateCustomer = () => {
-    DATA.update(currentCustomer.id, currentCustomer)
+    DATA.update(currentCustomer)
       .then((response) => {
         console.log(response.data);
         setMessage('The data was updated successfully!');
+        navigate('/customers');
       })
       .catch((e) => {
         console.log(e);
