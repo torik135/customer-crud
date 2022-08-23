@@ -47,6 +47,7 @@ const Customer = (props) => {
       address: currentCustomer.address,
       country: currentCustomer.country,
       phone_number: currentCustomer.phone_number,
+      job_title: currentCustomer.job_title,
       status: currentCustomer.status,
     };
 
@@ -89,29 +90,73 @@ const Customer = (props) => {
           <h4>Customer</h4>
           <form>
             <div className='form-group'>
-              <label htmlFor='title'>Name</label>
+              <label htmlFor='name'>Name</label>
               <input
                 type='text'
                 className='form-control'
-                id='title'
-                name='title'
+                id='name'
+                name='name'
                 value={currentCustomer.name}
                 onChange={handleInputChange}
               />
             </div>
             <div className='form-group'>
-              <label htmlFor='description'>Address</label>
+              <label htmlFor='address'>Address</label>
               <input
                 type='text'
                 className='form-control'
-                id='description'
-                name='description'
+                id='address'
+                name='address'
                 value={currentCustomer.address}
                 onChange={handleInputChange}
               />
             </div>
-
             <div className='form-group'>
+              <label htmlFor='country'>Country</label>
+              <input
+                type='text'
+                className='form-control'
+                id='country'
+                name='country'
+                value={currentCustomer.country}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='form-group'>
+              <label htmlFor='phone_number'>Phone</label>
+              <input
+                type='text'
+                className='form-control'
+                id='phone_number'
+                name='phone_number'
+                value={currentCustomer.phone_number}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='form-group'>
+              <label htmlFor='job_title'>Job</label>
+              <input
+                type='text'
+                className='form-control'
+                id='job_title'
+                name='job_title'
+                value={currentCustomer.job_title}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='form-group'>
+              <label htmlFor='status'>Status</label>
+              <input
+                type='text'
+                className='form-control'
+                id='status'
+                name='status'
+                value={currentCustomer.status}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className='form-group mt-3'>
               <label>
                 <strong>Status:</strong>
               </label>
@@ -121,27 +166,27 @@ const Customer = (props) => {
 
           {currentCustomer.status ? (
             <button
-              className='badge badge-primary mr-2'
+              className='badge badge-primary me-2'
               onClick={() => updateStatus(false)}
             >
-              UnPublish
+              Non-aktifkan
             </button>
           ) : (
             <button
-              className='badge badge-primary mr-2'
+              className='btn btn-secondary me-2'
               onClick={() => updateStatus(true)}
             >
-              Publish
+              Aktifkan
             </button>
           )}
 
-          <button className='badge badge-danger mr-2' onClick={deleteCustomer}>
+          <button className='btn btn-warning me-2' onClick={deleteCustomer}>
             Delete
           </button>
 
           <button
             type='submit'
-            className='badge badge-success'
+            className='btn btn-info'
             onClick={updateCustomer}
           >
             Update

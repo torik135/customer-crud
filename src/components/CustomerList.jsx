@@ -123,17 +123,38 @@ const CustomerList = () => {
             </div>
             <div>
               <label>
+                <strong>Country:</strong>
+              </label>{' '}
+              {currentCustomers.country}
+            </div>
+            <div>
+              <label>
+                <strong>Phone:</strong>
+              </label>{' '}
+              {currentCustomers.phone_number}
+            </div>
+            <div>
+              <label>
+                <strong>Job:</strong>
+              </label>{' '}
+              {currentCustomers.job_title}
+            </div>
+            <div>
+              <label>
                 <strong>Status:</strong>
               </label>{' '}
               {currentCustomers.status ? 'Aktif' : 'Non aktif'}
             </div>
 
-            <Link
-              to={'/customers/' + currentCustomers.id}
-              className='badge badge-warning'
-            >
-              Edit
-            </Link>
+            <div>
+              <Link
+                // to={'/customers/' + currentCustomers.id}
+                to={'/edit'}
+                className='btn btn-primary'
+              >
+                Edit
+              </Link>
+            </div>
           </div>
         ) : (
           <div>
